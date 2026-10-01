@@ -11,6 +11,7 @@ import categoryRoutes from './routes/category.routes.js';
 import tagRoutes from './routes/tag.routes.js';
 import seoRoutes from './routes/seo.routes.js';
 import * as articleController from './controllers/article.controller.js';
+import * as seoController from './controllers/seo.controller.js';
 
 const app = express();
 
@@ -46,6 +47,9 @@ app.get('/api/search', validate(searchSchema, 'query'), articleController.search
 
 // SEO
 app.use('/api', seoRoutes);
+
+// Q2: Serve robots.txt at root for search engine crawlers
+app.get('/robots.txt', seoController.robotsTxt);
 
 // Error handler (must be last)
 app.use(errorHandler);
