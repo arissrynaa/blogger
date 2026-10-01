@@ -87,5 +87,3 @@ All tables with `updated_at` columns have a `BEFORE UPDATE` trigger (`update_upd
 - **Admin user:** username=`admin`, password hash is a bcrypt placeholder (backend must re-hash in production)
 - **Categories:** Technology, Personal, Tutorial
 - **Tags:** JavaScript, TypeScript, PostgreSQL, Docker, DevOps
-
-</content>
