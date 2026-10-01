@@ -100,5 +100,3 @@ CREATE TRIGGER trg_users_updated      BEFORE UPDATE ON users      FOR EACH ROW E
 CREATE TRIGGER trg_categories_updated  BEFORE UPDATE ON categories FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER trg_tags_updated        BEFORE UPDATE ON tags       FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER trg_articles_updated    BEFORE UPDATE ON articles   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
-</content>

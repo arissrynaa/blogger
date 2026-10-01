@@ -25,5 +25,3 @@ INSERT INTO tags (id, name, slug) VALUES
 ('c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', 'PostgreSQL', 'postgresql'),
 ('c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a34', 'Docker', 'docker'),
 ('c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a35', 'DevOps', 'devops');
-
-</content>
