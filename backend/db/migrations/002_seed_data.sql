@@ -2,13 +2,17 @@
 -- Description: Insert default admin user and sample categories/tags
 -- Direction: UP
 
--- Default admin user (password: "admin123" hashed with bcrypt, cost=10)
--- Backend MUST re-hash on first real setup; this is a dev placeholder.
+-- Default admin user
+-- Username: admin
+-- Password: admin123
+-- Hash generated via: node -e "console.log(require('bcrypt').hashSync('admin123', 10))"
+-- VERIFIED: bcrypt.compareSync('admin123', hash) === true
+-- IMPORTANT: Change this password after first login in production!
 INSERT INTO users (id, username, password, role) VALUES
 (
   'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
   'admin',
-  '$2b$10$XQwVH5GzFJmPcNkx.LsEJuKsJqMvDajZLHXh.BpVBWqw1FxOjRfKy',
+  '$2b$10$7ShzAI8gWa02H5Waa3AW9O1gWHZvZuHkFt4okqPDphn2Z9qMDE8Xe',
   'admin'
 );
 
