@@ -10,9 +10,12 @@ export default function ArticleCard({ article }: Props) {
     <article className="group flex flex-col gap-3 border-b border-border pb-6 last:border-0">
       {article.featuredImageUrl && (
         <Link to={`/article/${article.slug}`} className="overflow-hidden rounded-lg">
-          <img
+<img
             src={article.featuredImageUrl}
             alt={article.title}
+            loading="lazy"
+            width={600}
+            height={400}
             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
