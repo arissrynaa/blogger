@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import * as authService from '../services/auth.service.js';
 
+// C3: login uses username/password
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const result = await authService.login(req.body.email, req.body.password);
+    const result = await authService.login(req.body.username, req.body.password);
     res.json({ data: result });
   } catch (err) {
     next(err);

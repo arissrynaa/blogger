@@ -1,11 +1,8 @@
+// C7: align with contract - username not email
 export interface JwtPayload {
   userId: string;
-  email: string;
+  username: string;
   role: 'admin';
-}
-
-export interface AuthenticatedRequest extends Express.Request {
-  user?: JwtPayload;
 }
 
 export interface ApiResponse<T = unknown> {

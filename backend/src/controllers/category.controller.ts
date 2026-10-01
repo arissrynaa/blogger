@@ -32,19 +32,21 @@ export async function create(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+// C4: update by id
 export async function update(req: Request, res: Response, next: NextFunction) {
   try {
-    const category = await categoryService.updateCategory(paramStr(req.params.slug), req.body);
+    const category = await categoryService.updateCategory(paramStr(req.params.id), req.body);
     res.json({ data: category });
   } catch (err) {
     next(err);
   }
 }
 
+// C4: delete by id
 export async function remove(req: Request, res: Response, next: NextFunction) {
   try {
-    await categoryService.deleteCategory(paramStr(req.params.slug));
-    res.json({ data: { success: true } });
+    await categoryService.deleteCategory(paramStr(req.params.id));
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

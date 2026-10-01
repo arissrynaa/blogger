@@ -32,19 +32,21 @@ export async function create(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+// C4: update by id
 export async function update(req: Request, res: Response, next: NextFunction) {
   try {
-    const tag = await tagService.updateTag(paramStr(req.params.slug), req.body);
+    const tag = await tagService.updateTag(paramStr(req.params.id), req.body);
     res.json({ data: tag });
   } catch (err) {
     next(err);
   }
 }
 
+// C4: delete by id
 export async function remove(req: Request, res: Response, next: NextFunction) {
   try {
-    await tagService.deleteTag(paramStr(req.params.slug));
-    res.json({ data: { success: true } });
+    await tagService.deleteTag(paramStr(req.params.id));
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

@@ -10,9 +10,9 @@ const router = Router();
 router.get('/', tagController.list);
 router.get('/:slug', tagController.getBySlug);
 
-// Admin
+// Admin - C4: by :id
 router.post('/', requireAuth, requireRole('admin'), validate(tagCreateSchema), tagController.create);
-router.patch('/:slug', requireAuth, requireRole('admin'), validate(tagUpdateSchema), tagController.update);
-router.delete('/:slug', requireAuth, requireRole('admin'), tagController.remove);
+router.patch('/:id', requireAuth, requireRole('admin'), validate(tagUpdateSchema), tagController.update);
+router.delete('/:id', requireAuth, requireRole('admin'), tagController.remove);
 
 export default router;

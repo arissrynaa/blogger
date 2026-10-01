@@ -5,29 +5,33 @@ import { env } from '../config/env.js';
 import { AppError } from '../middleware/errorHandler.js';
 import type { JwtPayload } from '../types/index.js';
 
-export async function login(email: string, password: string): Promise<{ token: string; user: { id: string; email: string; name: string; role: string } }> {
-  const result = await pool.query('SELECT id, email, name, password_hash, role FROM users WHERE email = $1', [email]);
+// C1: login uses username/password per schema (not email)
+export async function login(username: string, password: string): Promise<{ token: string; user: { id: string; username: string; role: string } }> {
+  const result = await pool.query('SELECT id, username, password, role FROM users WHERE username = $1', [username]);
   if (result.rows.length === 0) {
-    throw new AppError(401, 'UNAUTHORIZED', 'Invalid email or password');
+    throw new AppError(401, 'UNAUTHORIZED', 'Invalid username or password');
   }
 
   const user = result.rows[0];
-  const valid = await bcrypt.compare(password, user.password_hash);
+  // C1: column is 'password' not 'password_hash'
+  const valid = await bcrypt.compare(password, user.password);
   if (!valid) {
-    throw new AppError(401, 'UNAUTHORIZED', 'Invalid email or password');
+    throw new AppError(401, 'UNAUTHORIZED', 'Invalid username or password');
   }
 
-  const payload: JwtPayload = { userId: user.id, email: user.email, role: user.role };
+  // C7: payload shape aligns with contract
+  const payload: JwtPayload = { userId: user.id, username: user.username, role: user.role };
   const token = jwt.sign(payload, env.jwtSecret, { expiresIn: '24h' });
 
   return {
     token,
-    user: { id: user.id, email: user.email, name: user.name, role: user.role },
+    user: { id: user.id, username: user.username, role: user.role },
   };
 }
 
+// C7: getMe returns {id, username, role}
 export async function getMe(userId: string) {
-  const result = await pool.query('SELECT id, email, name, role, created_at FROM users WHERE id = $1', [userId]);
+  const result = await pool.query('SELECT id, username, role, created_at FROM users WHERE id = $1', [userId]);
   if (result.rows.length === 0) {
     throw new AppError(404, 'NOT_FOUND', 'User not found');
   }
