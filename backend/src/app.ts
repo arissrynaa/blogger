@@ -15,6 +15,10 @@ import * as seoController from './controllers/seo.controller.js';
 
 const app = express();
 
+// Railway terminates TLS at its proxy and forwards the client IP header.
+// Trusting the first proxy keeps rate limiting accurate in production.
+app.set('trust proxy', 1);
+
 // Security & parsing
 app.use(helmet());
 app.use(cors());
